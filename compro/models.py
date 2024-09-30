@@ -1,26 +1,50 @@
+from datetime import datetime
+
+from compro import db, login_manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-@login_manager.load_user
-def load_user(iser_id):
-    user = Users.query.get(user_id)
-    return user
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(user_id)
     
-db = SQLAlchemy()
+
 class Users (db.Model, UserMixin):
+     __tablename__ = 'users'
      id = db.Column(db.Integer, primary_key=True)
      username = db.Column(db.String(64), nullable = False)
-     email = db.Column(db.String(128), nullable=True, index=True)
+     email = db.Column(db.String(128), nullable=True, index=True, unique=True)
      hash_password = db.Column(db.String(128))
-     blog = db.Relationship('blog', backref='author')
+     profile_photo_path = db.Column(db.String(), default='default.jpg')
+     post = db.relationship('Blog', backref='author', lazy='dynamic')
      
      def __init__(self, username, email, password):
-         pass
-         
-         
-        def check_pass(self, password):
-            pass
+         self.username = username
+         self.email = email
+         self.hash_password = generate_password_hash(password)
+
+     def check_pass(self, password):
+            return check_password_hash(self.hash_password,password)
+
             
-         def __repr__(self):
-             pass
+     def __repr__(self):
+             return f'User {self.username}'
+
+class Blogs(db.Model):
+    __tablename__ = 'blogs'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    posted_date = db.Column(db.DateTime, default = datetime.utcnow())
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    def __init__(self, title, content, author_id):
+        self.title = title
+        self.content = content
+        self.author_id = author_id
+
+    def __repr__(self):
+        return f'Blog {self.title}'
+
