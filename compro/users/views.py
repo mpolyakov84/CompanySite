@@ -7,7 +7,7 @@ from compro.users.forms import UserForm, LoginForm, RegisterForm
 
 users_bp = Blueprint('users', __name__, template_folder='templates')
 
-@users_bp.route('register', methods=["GET", "POST"])
+@users_bp.route('/register', methods=["GET", "POST"])
 def register():
 
     form = RegisterForm()
@@ -20,7 +20,7 @@ def register():
 
     return render_template('register.html', form=form)
 
-@users_bp.route('login', methods=["GET", "POST"])
+@users_bp.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
 
@@ -36,7 +36,24 @@ def login():
 
     return render_template('login.html', form=form)
 
+@users_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('core.index'))
 
 
+@users_bp.route('/update', methods=["GET", "POST"])
+def register():
+
+    form = RegisterForm()
+    if form.validate_on_submit():
+
+        user = Users(form.username.data, form.email.data, form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('users.login'))
+
+    return render_template('register.html', form=form)
 
 
