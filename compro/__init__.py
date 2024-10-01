@@ -22,6 +22,7 @@ login_manager.init_app(app)
 
 
 from compro.core.views import core_bp
+from compro.users.views import users_bp
 
 app.register_blueprint(core_bp)
-
+app.register_blueprint(users_bp)

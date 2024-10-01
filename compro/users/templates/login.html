@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container">
 <form method ='POST'>
     {{ form.hidden_tag() }}
  
 <div class="mb-3">
-    {{ form.email.label(class = 'form-label') }} {{ form.email(class='form-control')
-    <small class='text-dangereos'>{{ form.email.errors | join('|')</small>
+    {{ form.email.label(class="form-label") }} {{ form.email(class="form-control") }}
+    <small class="text-danger">{{ form.email.errors | join('|') }}</small>
     </div>
-    
+
 <div class="mb-3">
-    {{ form.password.label(class = 'form-label') }} {{ form.passeord(class='form-control')
-    <small class='text-dangereos'>{{ form.password.errors | join('|')</small>
+    {{ form.password.label(class="form-label") }} {{ form.password(class="form-control") }}
+    <small class="text-danger">{{ form.password.errors | join('|') }}</small>
     </div>
 
     <div class="mb-3">
-    {{ form.submit(class='btn btn-secondary') }}
+    {{ form.submit(class="btn btn-secondary") }}
     </div>
 
-<form>
-
-{% endbloc %}
+</form>
+</div>
+{% endblock %}

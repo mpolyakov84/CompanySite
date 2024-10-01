@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container">
 <form method ='POST'>
     {{ form.hidden_tag() }}
     <div class="mb-3">
-    {{ form.username.label(class = 'form-label') }} {{ form.username(class='form-control')
-    <small class='text-dangereos'>{{ form.username.errors | join('|')</small>
+    {{ form.username.label(class = 'form-label') }} {{ form.username(class='form-control') }}
+    <small class='text-danger'>{{ form.username.errors | join('|') }}</small>
     </div>
     
 <div class="mb-3">
-    {{ form.email.label(class = 'form-label') }} {{ form.email(class='form-control')
-    <small class='text-dangereos'>{{ form.email.errors | join('|')</small>
+    {{ form.email.label(class = 'form-label') }} {{ form.email(class='form-control') }}
+    <small class='text-danger'>{{ form.email.errors | join('|') }}</small>
     </div>
     
 <div class="mb-3">
-    {{ form.profile_photo.label(class = 'form-label') }} {{ form.profile_photo(class="form-control")
-    <small class='text-dangereos'>{{ form.profile_photo.errors | join('|')</small>
+    {{ form.profile_photo.label(class = 'form-label') }} {{ form.profile_photo(class="form-control") }}
+    <small class="text-danger">{{ form.profile_photo.errors | join('|') }}</small>
     </div>
 
     <div class="mb-3">
     {{ form.submit(class='btn btn-secondary') }}
     </div>
 
-<form>
-
-{% endbloc %}
+</form>
+</div>
+{% endblock %}
