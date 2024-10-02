@@ -2,7 +2,8 @@ from flask import render_template, url_for, redirect, flash, Blueprint, request
 from flask_login import current_user, login_required, login_user, logout_user
 from compro import db, login_manager
 from compro.models import Users
-from compro.users.forms import LoginForm, RegisterForm, PhotoForm
+from compro.users.forms import LoginForm, RegisterForm, UpdateForm
+from compro.users.pic_handler import add_photo
 
 users_bp = Blueprint('users', __name__, template_folder='templates')
 
@@ -47,16 +48,25 @@ def logout():
 @login_required
 def update():
 
-    form = RegisterForm()
+    form = UpdateForm()
+
     if form.validate_on_submit():
+        if form.profile_photo.data:
+            pic = add_photo(form.profile_photo.data, current_user)
+            current_user.profile_photo_path = pic
 
-
+        current_user.username = form.username.data
+        current_user.email = form.email.data
         db.session.commit()
-        return redirect(url_for('users.login'))
+        return redirect(url_for('users.profile'))
 
-    pic_form  = PhotoForm()
-    if pic_form.validate_on_submit():
-        pass
-    return render_template('profile.html', form=form)
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
 
+    return render_template('edit_profile.html', form=form)
 
+@users_bp.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')

@@ -18,7 +18,10 @@ class RegisterForm(FlaskForm):
     confirm_pass = PasswordField('Confirm password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
-class PhotoForm(FlaskForm):
 
+class UpdateForm(FlaskForm):
+
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     profile_photo = FileField('Profile Photo', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
+    submit = SubmitField('Update Profile')
