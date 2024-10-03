@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Wellcome to home page!</h3>
+    <h3 align="center">Wellcome to home page!</h3>
+
+    <div class="container center">
+        {% for post in blog_posts.items %}
+    <div align="center">
+    <div class="card w-75" >
+      <div class="card-body">
+        <h4><a href="{{ url_for('blog.read_post',post_id=post.id) }}">{{ post.title }}</a></h4>
+        <p class="card-text">{{ post.content }}</p>
+        <a href="#" class="card-link">Written by: {{ post.author.username }}</a>
+        <p>Published on: {{ post.posted_date }}</p>
+      </div>
+    </div>
+    </div>
+        {% endfor %}
+    </div>
+
+  <nav aria-label="pagination">
+  <ul class="pagination justify-content-center">
+    {% for num_page in blog_posts.iter_pages(left_edge=1, left_current=1, right_current=2, right_edge=1) %}
+
+            {% if page == num_page %}
+            <li class="page-item active" ><span class="page-link">{{ num_page }}</span></li>
+            {% elif num_page == None %}
+             <li class="page-item" ><span class="page-link">...</span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('core.index',page=num_page) }}">{{ num_page }}</a></li>
+            {% endif %}
+
+      {% endfor %}
+  </ul>
+</nav>
 
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.title.label(class="form-label") }} {{ form.title(class="form-control") }}
+                <small class="text-danger">{{ form.title.errors | join('|') }}</small>
+            </div>
+            <div class="mb-3">
+                {{ form.content.label(class="form-label") }} {{ form.content(class="form-control") }}
+                <small class="text-danger">{{ form.content.errors | join('|') }}</small>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary mb-3">Create Post</button>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}
