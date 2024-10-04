@@ -6,12 +6,14 @@
     <div class="container center">
         {% for post in blog_posts.items %}
     <div align="center">
-    <div class="card w-75" >
+    <div class="card w-75 text-start" >
       <div class="card-body">
-        <h4><a href="{{ url_for('blog.read_post',post_id=post.id) }}">{{ post.title }}</a></h4>
+        <h4 class="card-title"><a href="{{ url_for('blog.read_post',post_id=post.id) }}">{{ post.title }}</a></h4>
         <p class="card-text">{{ post.content }}</p>
-        <a href="#" class="card-link">Written by: {{ post.author.username }}</a>
-        <p>Published on: {{ post.posted_date }}</p>
+        <p class="card-text">Written by:
+        <a href="{{ url_for('users.user_posts',user_id=post.author.id) }}" class="card-link">{{ post.author.username }}</a>
+        </p>
+        <p class="card-text">Published on: {{ post.posted_date.strftime('%b %d, %Y') }}</p>
       </div>
     </div>
     </div>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for post in posts.items %}
+        <div align="center">
+        <div class="card w-75 text-start">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ url_for('blog.read_post',post_id=post.id) }}">{{ post.title }}</a> </h5>
+                <p class="card-text">{{ post.title }}</p>
+                <p class="card-text">Written by: <a href="{{ url_for('users.user_posts',user_id=post.author.id) }}" class="card-lnk">{{ post.author.username }}</a></p>
+                <p class="card-text">Published on: {{ post.posted_date.strftime('%b %d, %Y') }}</p>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+
+    <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+    {% for page_num in posts.iter_pages(left_edge=2, left_current=2, right_current=4, right_edge=2) %}
+
+        {% if page_num == page %}
+             <li class="page-item disabled">
+              <a class="page-link">{{ page_num }}</a>
+            </li>
+        {% elif page_num == None %}
+             <li class="page-item">
+              <a class="page-link">...</a>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('users.user_posts',user_id=user.id,page=page_num) }}">{{ page_num }}</a>
+            </li>
+        {% endif %}
+
+    {% endfor %}
+    </ul>
+    </nav>
+{% endblock %}

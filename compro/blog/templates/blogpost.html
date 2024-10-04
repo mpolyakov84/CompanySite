@@ -8,8 +8,8 @@
   <div class="card-body">
     <h5 class="card-title">{{ blog_post.title }}</h5>
     <p class="card-text">{{ blog_post.content }}</p><br>
-    <p>Written by:  <a href="#">{{ blog_post.author.username }}</a></p>
-    <p>Created at:  {{ blog_post.posted_date.strftime('%B %d, %Y') }}</p>
+    <p class="card-text">Written by:  <a href="{{ url_for('users.user_posts',user_id=blog_post.author.id) }}">{{ blog_post.author.username }}</a></p>
+    <p class="card-text">Created at:  {{ blog_post.posted_date.strftime('%B %d, %Y') }}</p>
 
       {% if current_user.is_authenticated and current_user == blog_post.author %}
         <a href="{{ url_for('blog.update_post',post_id = blog_post.id) }}" class="btn btn-primary">Update</a>

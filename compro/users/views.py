@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, flash, Blueprint, request
 from flask_login import current_user, login_required, login_user, logout_user
 from compro import db, login_manager
-from compro.models import Users
+from compro.models import Users, Blogs
 from compro.users.forms import LoginForm, RegisterForm, UpdateForm
 from compro.users.pic_handler import add_photo
 
@@ -70,3 +70,12 @@ def update():
 @login_required
 def profile():
     return render_template('profile.html')
+
+
+@users_bp.route('/user/posts/<user_id>')
+def user_posts(user_id):
+
+    user = Users.query.get(user_id)
+    page = request.args.get('page', 1, type=int)
+    posts = Blogs.query.filter_by(author=user).order_by(Blogs.posted_date.desc()).paginate(page=page,per_page=3)
+    return render_template('user_posts.html',posts=posts,page=page,user=user)
