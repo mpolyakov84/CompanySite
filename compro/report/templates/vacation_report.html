@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h6 align="center">Введіть наступні дані щоб сгенерувати рапорт та квиток на відпуску</h6>
+<form class="row g-3" method="POST">
+{{ form.hidden_tag() }}
+  <div class="col-md-4">
+    {{ form.last_name.label(class="form-label") }} {{ form.last_name(class="form-control") }}
+      <small class="text-danger">{{ form.last_name.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.first_name.label(class="form-label") }} {{ form.first_name(class="form-control") }}
+      <small class="text-danger">{{ form.first_name.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.middle_name.label(class="form-label") }} {{ form.middle_name(class="form-control") }}
+      <small class="text-danger">{{ form.middle_name.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.last_name_mod.label(class="form-label") }} {{ form.last_name_mod(class="form-control") }}
+      <small class="text-danger">{{ form.last_name_mod.errors | join('|') }}</small>
+  </div>
+    <br>
+  <div class="col-md-4">
+    {{ form.vacation_date.label(class="form-label") }} {{ form.vacation_date(class="form-control") }}
+      <small class="text-danger">{{ form.vacation_date.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.vacation_days.label(class="form-label") }} {{ form.vacation_days(class="form-control") }}
+      <small class="text-danger">{{ form.vacation_days.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.gender.label(class="form-label") }} {{ form.gender(class="form-select") }}
+      <small class="text-danger">{{ form.day_for_trip.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-12">
+    {{ form.day_for_trip.label(class="form-check-label") }} {{ form.day_for_trip(class="form-check-input") }}
+      <small class="text-danger">{{ form.day_for_trip.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-12">
+    {{ form.address.label(class="form-label") }} {{ form.address(class="form-select") }}
+      <small class="text-danger">{{ form.address.errors | join('|') }}</small>
+  </div>
+  <div class="col-md-4">
+    {{ form.telephone.label(class="form-label") }} {{ form.telephone(class="form-control") }}
+      <small class="text-danger">{{ form.telephone.errors | join('|') }}</small>
+  </div>
+    <div class="col-12">
+    {{ form.submit(class="btn btn-primary") }}
+    </div>
+
+</form>
+</div>
+
+{% endblock %}

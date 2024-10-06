@@ -25,7 +25,9 @@ from compro.core.views import core_bp
 from compro.users.views import users_bp
 from compro.errors.error_handler import errors_bp
 from compro.blog.views import blog_bp
+from compro.report.views import report_bp
 app.register_blueprint(core_bp)
 app.register_blueprint(users_bp)
 app.register_blueprint(errors_bp)
 app.register_blueprint(blog_bp)
+app.register_blueprint(report_bp)
